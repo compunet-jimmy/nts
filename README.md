@@ -131,6 +131,7 @@ NTS networking is configured with:
 
 - UFW rules to restrict access to only ports needed to access the various services
   - tcp 80/443 - Main index page and SNI redirection to other services
+  - tcp/udp 514 - Syslog services on LibreNMS
   - tcp 5000 - Netdisco
   - tcp 8000 - LibreNMS
   - tcp 8080 - LibreSpeed
