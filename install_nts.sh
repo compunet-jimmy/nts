@@ -502,7 +502,7 @@ answer=${answer:-y}
 answer=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
 
 # Check the user's response
-if [[ "$answer" == "y" | "$answer" == "yes" ]]; then
+if [[ "$answer" == "y" || "$answer" == "yes" ]]; then
     echo "Proceeding with installation..."
     echo
     nts_installer
