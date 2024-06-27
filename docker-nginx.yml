@@ -1,0 +1,21 @@
+name: nginx
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/nts/nginx/conf:/etc/nginx/
+      - /opt/nts/nginx/certs:/etc/nginx/certs
+      - /opt/nts/nginx/auth:/etc/nginx/auth
+      - /opt/nts/nginx/html:/var/www/html:ro
+      - /opt/nts/nginx/logs:/var/log/nginx
+
+volumes:
+  conf:
+  certs:
+  auth:
+  html:
+  logs:

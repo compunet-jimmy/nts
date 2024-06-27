@@ -1,0 +1,84 @@
+name: netdisco
+services:
+
+  netdisco-postgresql:
+    image: netdisco/netdisco:latest-postgresql
+    container_name: netdisco-postgresql
+    hostname: netdisco-postgresql
+    init: true
+    restart: always
+    volumes:
+      - "/opt/nts/netdisco/pgdata:/var/lib/postgresql/data"
+      
+  netdisco-backend:
+    image: netdisco/netdisco:latest-backend
+    container_name: netdisco-backend
+    hostname: netdisco-backend
+    init: true
+    restart: always
+    volumes:
+      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
+      - "/opt/nts/netdisco/config:/home/netdisco/environments"
+      - "/opt/nts/netdisco/logs:/home/netdisco/logs"
+    environment:
+      NETDISCO_DOMAIN:  discover
+      NETDISCO_DB_HOST: netdisco-postgresql
+      NETDISCO_ADMIN_USER: "nts-admin"
+    depends_on:
+      - netdisco-postgresql
+    dns_opt:
+      - 'ndots:0'
+      - 'timeout:1'
+      - 'retries:0'
+      - 'attempts:1'
+      - edns0
+      - trustad
+
+  netdisco-web:
+    image: netdisco/netdisco:latest-web
+    container_name: netdisco-web
+    hostname: netdisco-web
+    init: true
+    restart: always
+    volumes:
+      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
+      - "/opt/nts/netdisco/config:/home/netdisco/environments"
+    environment:
+      NETDISCO_DOMAIN:  discover
+      NETDISCO_DB_HOST: netdisco-postgresql
+      NETDISCO_ADMIN_USER: "nts-admin"
+      IPV: 4
+    ports:
+      - "5000:5000"
+    depends_on:
+      - netdisco-postgresql
+    dns_opt:
+      - 'ndots:0'
+      - 'timeout:1'
+      - 'retries:0'
+      - 'attempts:1'
+      - edns0
+      - trustad
+      
+  netdisco-do:
+    image: netdisco/netdisco:latest-do
+    container_name: netdisco-do
+    init: true
+    # use same hostname as backend to satisfy skiplist check (#68)
+    hostname: netdisco-backend
+    volumes:
+      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
+      - "/opt/nts/netdisco/config:/home/netdisco/environments"
+    environment:
+      NETDISCO_DOMAIN:  discover
+      NETDISCO_DB_HOST: netdisco-postgresql
+    depends_on:
+      - netdisco-postgresql
+    profiles:
+      - cli-manual
+
+volumes:
+  pgdata:
+  nd-site-local:
+  config:
+  logs:

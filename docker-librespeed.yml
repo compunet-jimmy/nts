@@ -1,0 +1,18 @@
+name: librespeed
+services:
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:latest
+    container_name: librespeed
+    environment:
+      - TZ=Etc/UTC
+      - PASSWORD=${NTS_PASSWORD}
+      - CUSTOM_RESULTS=false
+      - DB_TYPE=sqlite
+    volumes:
+      - /opt/nts/librespeed/config:/config
+    ports:
+      - 8080:80
+    restart: unless-stopped
+
+volumes:
+  librespeed:

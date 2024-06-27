@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAIAAAB4a0T2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5QcXDSwT3bp0ZgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAJUlEQVQI12NggID/B8P9/xdAYGBgYFJ3B4qMjIwMAQKZCQEdDgoQBJsAN/QEVoAAAAASUVORK5CYII=">
+    <title>Network T-Shoot Server</title>
+    <style>
+        body {
+            background-color: #A9A9A9; /* Medium gray background */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff; /* White box */
+            color: #000000; /* Black font */
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+        h1 {
+            margin-bottom: 40px;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #A9A9A9;
+        }
+        .link-container {
+            margin: 10px 0;
+        }
+        .link-container a {
+            color: #000000; /* Black link */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+        .link-container img {
+            display: block;
+            margin: 10px auto;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network T-Shoot Server</h1>
+        <div class="link-container">
+            <a href="http://${HOST_IP}:5000">Netdisco (${HOST_IP}:5000)</a><br />
+            <a href="http://${FQDN}:5000">netdisco-${FQDN} (Requires DNS Entry)</a>
+            <a href="http://${HOST_IP}:5000"><img src="images/netdisco_500px.png" alt="Netdisco Logo"></a>
+            <hr />
+        </div>
+        <div class="link-container">
+            <a href="http://${HOST_IP}:8080">LibreSpeed (${HOST_IP}:8080)</a><br />
+            <a href="http://${FQDN}:8080">librespeed-${FQDN} (Requires DNS Entry)</a>
+            <a href="http://${HOST_IP}:8080"><img src="images/librespeed_500px.png" alt="LibreSpeed Logo"></a>
+            <hr />
+        </div>
+        <div class="link-container">
+            <a href="http://${HOST_IP}:8000">LibreNMS (${HOST_IP}:8000)</a><br />
+            <a href="http://${FQDN}:8000">librenms-${FQDN} (Requires DNS Entry)</a>
+            <a href="http://${HOST_IP}:8000"><img src="images/librenms_500px.png" alt="LibreNMS Logo"></a>
+        </div>
+    </div>
+</body>
+</html>

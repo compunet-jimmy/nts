@@ -1,0 +1,16 @@
+name: oxidized
+services:
+  oxidized:
+    image: oxidized/oxidized:latest
+    container_name: oxidized
+    user: 1000:1000
+    restart: always
+    ports:
+      - "8888:8888"
+    environment:
+      - CONFIG_RELOAD_INTERVAL=600
+    volumes:
+      - /opt/nts/oxidized:/home/oxidized/.config/oxidized/
+
+volumes:
+  oxidized:
