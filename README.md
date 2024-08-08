@@ -155,9 +155,8 @@ NTS networking is configured with:
 ![NTS Server Configuration](images/nts_internal_networking.png)
 
 ## Prerequisites and Assumptions
-- Clean and fresh installation [Ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/) (Possibly expanded to other distributions/releases in the future).
-- Root or sudo privileges to run the installation scripts.
-  - This is absolutely required to install Docker CE and LibreNMS. 
+- Clean and fresh installation [64-bit Ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/) (Possibly expanded to other distributions/releases in the future). This does not work on ARM/ARM-based architectures.
+  - This is absolutely required to install Docker CE and LibreNMS. 4
 - Project was designed to be deployed in a VM, not bare-metal hardware. Not saying it can't be done, but it's outside the (current) scope of this project.
 - NTS installer requires Docker CE (commiunity edition). A Docker installer script is included in this project, but not required.
   - Instructions for manual installation of Docker on Ubuntu can be found [here](https://docs.docker.com/engine/install/ubuntu/). 
