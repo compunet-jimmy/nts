@@ -54,7 +54,7 @@ mkdir -p /etc/docker
 
 tee /etc/docker/daemon.json > /dev/null <<EOF
 {
-  "bip": "198.18.0.1/16",
+  "bip": "198.18.0.1/24",
   "default-address-pools": [
     {
       "base": "198.18.0.0/16",
