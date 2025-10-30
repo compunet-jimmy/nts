@@ -28,6 +28,9 @@ services:
       NETDISCO_DOMAIN:  discover
       NETDISCO_DB_HOST: netdisco-postgresql
       NETDISCO_ADMIN_USER: "nts-admin"
+      NETDISCO_DB_NAME: netdisco
+      NETDISCO_DB_USER: netdisco
+      NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
       - netdisco-postgresql
     dns_opt:
@@ -51,6 +54,9 @@ services:
       NETDISCO_DOMAIN:  discover
       NETDISCO_DB_HOST: netdisco-postgresql
       NETDISCO_ADMIN_USER: "nts-admin"
+      NETDISCO_DB_NAME: netdisco
+      NETDISCO_DB_USER: netdisco
+      NETDISCO_DB_PASS: ${NTS_PASSWORD}
       IPV: 4
     ports:
       - "5000:5000"
@@ -76,6 +82,9 @@ services:
     environment:
       NETDISCO_DOMAIN:  discover
       NETDISCO_DB_HOST: netdisco-postgresql
+      NETDISCO_DB_NAME: netdisco
+      NETDISCO_DB_USER: netdisco
+      NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
       - netdisco-postgresql
     profiles:
