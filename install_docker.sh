@@ -52,7 +52,7 @@ sh ./install.sh
 # Configure Docker network to use 198.18.0.0/16
 mkdir -p /etc/docker
 
-cat > /etc/docker/daemon.json <<EOF
+tee /etc/docker/daemon.json > /dev/null <<EOF
 {
   "bip": "198.18.0.1/16",
   "default-address-pools": [
