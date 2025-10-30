@@ -171,8 +171,9 @@ ${YELLOW}• SAN (LibreNMS SNI): ${WHITE}librenms-$FQDN
   create_users netdisco 901 $NTS_PASSWORD
 
   # Create Netdisco directories change ownership to netdisco
-  mkdir -p /opt/nts/netdisco/nd-site-local /opt/nts/netdisco/config /opt/nts/netdisco/logs
-  chown -R netdisco:netdisco /opt/nts/netdisco
+  mkdir -p /opt/nts/netdisco/{pgdata,nd-site-local,config,logs}
+  chown -R 901:901 /opt/nts/netdisco
+  chmod -R 755 /opt/nts/netdisco
 
   # Deploy Netdisco
   docker compose -f docker-netdisco.yml up -d

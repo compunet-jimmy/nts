@@ -8,7 +8,7 @@ services:
     init: true
     restart: always
     volumes:
-      - nd-pgdata-volume:/var/lib/postgresql/data
+      - "/opt/nts/netdisco/pgdata:/var/lib/postgresql/data"
     environment:
       POSTGRES_DB: netdisco
       POSTGRES_USER: netdisco
@@ -21,9 +21,9 @@ services:
     init: true
     restart: always
     volumes:
-      - nd-sitelocal-volume:/home/netdisco/nd-site-local
-      - nd-config-volume:/home/netdisco/environments
-      - nd-logs-volume:/home/netdisco/logs
+      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
+      - "/opt/nts/netdisco/config:/home/netdisco/environments"
+      - "/opt/nts/netdisco/logs:/home/netdisco/logs"
     environment:
       NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
@@ -40,9 +40,9 @@ services:
     init: true
     restart: always
     volumes:
-      - nd-sitelocal-volume:/home/netdisco/nd-site-local
-      - nd-config-volume:/home/netdisco/environments
-      - nd-logs-volume:/home/netdisco/logs
+      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
+      - "/opt/nts/netdisco/config:/home/netdisco/environments"
+      - "/opt/nts/netdisco/logs:/home/netdisco/logs"
     environment:
       NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
@@ -61,8 +61,8 @@ services:
     init: true
     hostname: netdisco-backend
     volumes:
-      - nd-sitelocal-volume:/home/netdisco/nd-site-local
-      - nd-config-volume:/home/netdisco/environments
+      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
+      - "/opt/nts/netdisco/config:/home/netdisco/environments"
     environment:
       NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
@@ -73,9 +73,3 @@ services:
       - netdisco-postgresql
     profiles:
       - cli-manual
-
-volumes:
-  nd-pgdata-volume:
-  nd-sitelocal-volume:
-  nd-config-volume:
-  nd-logs-volume:
