@@ -32,7 +32,8 @@ services:
       NETDISCO_DB_USER: netdisco
       NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
-      - netdisco-postgresql
+      - netdisco-postgresql:
+          condition: service_healthy
     dns_opt:
       - 'ndots:0'
       - 'timeout:1'
@@ -61,7 +62,8 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - netdisco-postgresql
+      - netdisco-postgresql:
+          condition: service_healthy
     dns_opt:
       - 'ndots:0'
       - 'timeout:1'
@@ -86,7 +88,8 @@ services:
       NETDISCO_DB_USER: netdisco
       NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
-      - netdisco-postgresql
+      - netdisco-postgresql:
+          condition: service_healthy
     profiles:
       - cli-manual
 
