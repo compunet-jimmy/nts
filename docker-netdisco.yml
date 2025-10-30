@@ -8,16 +8,11 @@ services:
     init: true
     restart: always
     volumes:
-      - "/opt/nts/netdisco/pgdata:/var/lib/postgresql/data"
+      - nd-pgdata-volume:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: netdisco
       POSTGRES_USER: netdisco
       POSTGRES_PASSWORD: ${NTS_PASSWORD}
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U netdisco"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   netdisco-backend:
     image: netdisco/netdisco:latest-backend
@@ -26,26 +21,17 @@ services:
     init: true
     restart: always
     volumes:
-      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
-      - "/opt/nts/netdisco/config:/home/netdisco/environments"
-      - "/opt/nts/netdisco/logs:/home/netdisco/logs"
+      - nd-sitelocal-volume:/home/netdisco/nd-site-local
+      - nd-config-volume:/home/netdisco/environments
+      - nd-logs-volume:/home/netdisco/logs
     environment:
       NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
       NETDISCO_ADMIN_USER: "nts-admin"
-      NETDISCO_DB_NAME: netdisco
       NETDISCO_DB_USER: netdisco
       NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
-      netdisco-postgresql:
-        condition: service_healthy
-    dns_opt:
-      - 'ndots:0'
-      - 'timeout:1'
-      - 'retries:0'
-      - 'attempts:1'
-      - edns0
-      - trustad
+      - netdisco-postgresql
 
   netdisco-web:
     image: netdisco/netdisco:latest-web
@@ -54,8 +40,9 @@ services:
     init: true
     restart: always
     volumes:
-      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
-      - "/opt/nts/netdisco/config:/home/netdisco/environments"
+      - nd-sitelocal-volume:/home/netdisco/nd-site-local
+      - nd-config-volume:/home/netdisco/environments
+      - nd-logs-volume:/home/netdisco/logs
     environment:
       NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
@@ -63,19 +50,10 @@ services:
       NETDISCO_DB_NAME: netdisco
       NETDISCO_DB_USER: netdisco
       NETDISCO_DB_PASS: ${NTS_PASSWORD}
-      IPV: 4
     ports:
       - "5000:5000"
     depends_on:
-      netdisco-postgresql:
-        condition: service_healthy
-    dns_opt:
-      - 'ndots:0'
-      - 'timeout:1'
-      - 'retries:0'
-      - 'attempts:1'
-      - edns0
-      - trustad
+      - netdisco-postgresql
 
   netdisco-do:
     image: netdisco/netdisco:latest-do
@@ -83,8 +61,8 @@ services:
     init: true
     hostname: netdisco-backend
     volumes:
-      - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
-      - "/opt/nts/netdisco/config:/home/netdisco/environments"
+      - nd-sitelocal-volume:/home/netdisco/nd-site-local
+      - nd-config-volume:/home/netdisco/environments
     environment:
       NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
@@ -92,13 +70,12 @@ services:
       NETDISCO_DB_USER: netdisco
       NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
-      netdisco-postgresql:
-        condition: service_healthy
+      - netdisco-postgresql
     profiles:
       - cli-manual
 
 volumes:
-  pgdata:
-  nd-site-local:
-  config:
-  logs:
+  nd-pgdata-volume:
+  nd-sitelocal-volume:
+  nd-config-volume:
+  nd-logs-volume:
