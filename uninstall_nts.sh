@@ -130,6 +130,7 @@ docker_uninstall () {
   rm -rf /etc/systemd/system/docker.socket
   rm -rf /usr/lib/systemd/system/docker.service
   rm -rf /usr/lib/systemd/system/docker.socket
+  rm -rf /etc/docker
   rm -rf docker-install
 
   while true; do

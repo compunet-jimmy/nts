@@ -9,6 +9,10 @@ services:
     restart: always
     volumes:
       - "/opt/nts/netdisco/pgdata:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: netdisco
+      POSTGRES_USER: netdisco
+      POSTGRES_PASSWORD: ${NTS_PASSWORD}
       
   netdisco-backend:
     image: netdisco/netdisco:latest-backend
