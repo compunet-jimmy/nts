@@ -13,6 +13,11 @@ services:
       POSTGRES_DB: netdisco
       POSTGRES_USER: netdisco
       POSTGRES_PASSWORD: ${NTS_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netdisco"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
   netdisco-backend:
     image: netdisco/netdisco:latest-backend
