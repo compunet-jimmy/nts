@@ -1,6 +1,6 @@
 name: netdisco
-services:
 
+services:
   netdisco-postgresql:
     image: netdisco/netdisco:latest-postgresql
     container_name: netdisco-postgresql
@@ -18,7 +18,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      
+
   netdisco-backend:
     image: netdisco/netdisco:latest-backend
     container_name: netdisco-backend
@@ -30,15 +30,15 @@ services:
       - "/opt/nts/netdisco/config:/home/netdisco/environments"
       - "/opt/nts/netdisco/logs:/home/netdisco/logs"
     environment:
-      NETDISCO_DOMAIN:  discover
+      NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
       NETDISCO_ADMIN_USER: "nts-admin"
       NETDISCO_DB_NAME: netdisco
       NETDISCO_DB_USER: netdisco
       NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
-      - netdisco-postgresql:
-          condition: service_healthy
+      netdisco-postgresql:
+        condition: service_healthy
     dns_opt:
       - 'ndots:0'
       - 'timeout:1'
@@ -57,7 +57,7 @@ services:
       - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
       - "/opt/nts/netdisco/config:/home/netdisco/environments"
     environment:
-      NETDISCO_DOMAIN:  discover
+      NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
       NETDISCO_ADMIN_USER: "nts-admin"
       NETDISCO_DB_NAME: netdisco
@@ -67,8 +67,8 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - netdisco-postgresql:
-          condition: service_healthy
+      netdisco-postgresql:
+        condition: service_healthy
     dns_opt:
       - 'ndots:0'
       - 'timeout:1'
@@ -76,25 +76,24 @@ services:
       - 'attempts:1'
       - edns0
       - trustad
-      
+
   netdisco-do:
     image: netdisco/netdisco:latest-do
     container_name: netdisco-do
     init: true
-    # use same hostname as backend to satisfy skiplist check (#68)
     hostname: netdisco-backend
     volumes:
       - "/opt/nts/netdisco/nd-site-local:/home/netdisco/nd-site-local"
       - "/opt/nts/netdisco/config:/home/netdisco/environments"
     environment:
-      NETDISCO_DOMAIN:  discover
+      NETDISCO_DOMAIN: discover
       NETDISCO_DB_HOST: netdisco-postgresql
       NETDISCO_DB_NAME: netdisco
       NETDISCO_DB_USER: netdisco
       NETDISCO_DB_PASS: ${NTS_PASSWORD}
     depends_on:
-      - netdisco-postgresql:
-          condition: service_healthy
+      netdisco-postgresql:
+        condition: service_healthy
     profiles:
       - cli-manual
 
