@@ -58,6 +58,7 @@ nts_installer () {
   # API Token for Oxidized
   API_TOKEN=""
   NTS_PASSWORD="ntsRibbon1893"
+  export NTS_PASSWORD=$NTS_PASSWORD
 
   # Local IP and Hostname Info
   HOST_IP=$(hostname -I | awk '{print $1}')
