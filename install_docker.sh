@@ -49,6 +49,21 @@ chmod +x install.sh
 # Install Docker
 sh ./install.sh
 
+# Configure Docker network to use 198.18.0.0/16
+mkdir -p /etc/docker
+
+cat > /etc/docker/daemon.json <<EOF
+{
+  "bip": "198.18.0.1/16",
+  "default-address-pools": [
+    {
+      "base": "198.18.0.0/16",
+      "size": 24
+    }
+  ]
+}
+EOF
+
 while true; do
     echo -e "${YELLOW}"
     read -p "Install needs to reboot. Reboot computer? (Y/n): " answer
